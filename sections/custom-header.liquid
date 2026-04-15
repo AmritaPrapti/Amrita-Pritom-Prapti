@@ -1,0 +1,106 @@
+{{ 'custom-header.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign logo_width = settings.logo_height | times: settings.logo.aspect_ratio | ceil
+  assign logo_width_mobile = settings.logo_height_mobile | times: settings.logo.aspect_ratio | ceil
+  assign logo_style = '--header-logo-image-width: ' | append: logo_width | append: 'px;' | append: '--header-logo-image-width-mobile: ' | append: logo_width_mobile | append: 'px; --header-logo-image-height: ' | append: settings.logo_height | append: 'px; --header-logo-image-height-mobile: ' | append: settings.logo_height_mobile | append: 'px;'
+%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<header class=" header-section section section--page-width spacing-style color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding" >
+  <div class="custom-header">
+      {%- if request.page_type == 'index' -%}
+        <h1 class="visually-hidden">{{ shop.name }}</h1>
+      {%- endif -%}
+      <div class="logo">
+        <a href="{{ shop.url }}" class="header-logo {{ settings.logo }}" style="{{ logo_style }}">
+          {% if settings.logo != blank %}
+            {{
+              settings.logo
+              | image_url: height: settings.logo_height
+              | image_tag: class: 'header-logo__image', alt: shop.name, style: logo_style
+            }}
+          {% else %}
+            {{ shop.name }}
+          {% endif %}
+        </a>
+      </div>
+      <div>
+        <p>{{ section.settings.header_text }}</p>
+      </div>
+      {% if section.settings.header_link != blank %}
+        <div class="header-button">
+          <a
+            href="{{ section.settings.header_link }}"
+            class="header__button custom-button custom-button--secondary"
+          >
+            {{ section.settings.button_label }}
+            <span class="icon-arrow">{% render 'icon-arrow' %}</span>
+          </a>
+        </div>
+      {% endif %}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme of content",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "header_text",
+      "label": "Header Text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "url",
+      "id": "header_link",
+      "label": "Header Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "default": 40
+    }
+  ]
+}
+{% endschema %}
