@@ -95,8 +95,8 @@
 }
 
 .modal-product-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 300;
   margin-bottom: 10px;
 }
 
@@ -208,6 +208,8 @@
 
 .modal-product-description {
     margin-top: 10px;
+    font-weight: 300;
+    font-size: 14px;
 }
 
 .add-to-cart {
