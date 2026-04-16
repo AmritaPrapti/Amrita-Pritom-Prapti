@@ -81,12 +81,12 @@
       "custom-header": {
         "type": "custom-header",
         "settings": {
-          "color_scheme": "",
+          "color_scheme": "scheme-2",
           "header_text": "Find the ideal gift for your loved ones.",
           "header_link": "shopify://pages/contact",
           "button_label": "Shop Now",
-          "padding_top": 40,
-          "padding_bottom": 40
+          "padding_top": 10,
+          "padding_bottom": 10
         }
       }
     },
