@@ -1,0 +1,89 @@
+<div class="modal-overlay product-modal" role="dialog" aria-modal="true" data-product-id="{{ product.id }}">
+  <div class="modal-content">
+    <button class="modal-close-button" aria-label="Close Modal">
+      {{ 'icon-close.svg' | inline_asset_content }}
+    </button>
+
+    <div class="modal-product-info">
+        <div class="modal-product-image">
+          {{
+            product.featured_image
+            | image_url: width: 600, height: 600, crop: 'center'
+            | image_tag: class: 'product-grid__image', alt: product.title
+          }}
+        </div>
+        <div class="modal-product-details">
+          <h2 class="modal-product-title">{{ product.title }}</h2>
+          <p class="modal-product-price">{{ product.price | money }}</p>
+          <div class="modal-product-description">{{ product.description }}</div>
+        </div>
+    </div>
+
+     <div class="product-variant">
+
+  {%- comment -%} Render Color FIRST {%- endcomment -%}
+  {% for option in product.options_with_values %}
+    {% if option.name == 'Color' %}
+      <div class="product-option product-option--color">
+        <label>Color</label>
+        <div class="color-options">
+          {% for value in option.values %}
+            <button
+              type="button"
+              class="variant-option variant-button color-{{ value | handleize }}"
+              data-option-name="Color"
+              data-option-value="{{ value }}"
+              style="--color-value: {{ value | handleize }};"
+            >
+              {{ value }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  {%- comment -%} Render Size SECOND {%- endcomment -%}
+  {% for option in product.options_with_values %}
+    {% if option.name == 'Size' %}
+      <div class="product-option product-option--size">
+        <label>Size</label>
+        <div class="select-wrapper">
+            <select class="variant-option variant-select" data-option-name="Size" >
+              <option value="">Select Size</option>
+              {% for value in option.values %}
+                <option value="{{ value }}">{{ value }}</option>
+              {% endfor %}
+              
+            </select>
+            <span class="icon-dropdown">
+                {% render 'icon-dropdown' %}
+              </span>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+</div>
+    <button class="add-to-cart custom-button custom-button--primary">
+     Add to Cart <span class="icon-arrow">{% render 'icon-arrow' %}</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  window.productVariantsMap = window.productVariantsMap || {};
+  window.productVariantsMap[{{ product.id | json }}] = [
+    {% for variant in product.variants %}
+      {
+        "id": {{ variant.id }},
+        "title": {{ variant.title | json }},
+        "option1": {{ variant.option1 | json }},
+        "option2": {{ variant.option2 | json }},
+        "option3": {{ variant.option3 | json }},
+        "price": {{ variant.price }},
+        "available": {{ variant.available }}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>

@@ -40,7 +40,7 @@
     padding: 12px 40px;
     text-decoration: none;
     display: inline-block;
-  
+    border: none;
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -76,3 +76,23 @@
     left: 0;
 }
 
+.hidden-desktop {
+    display: none;
+}
+
+@media screen and (max-width: 749px) {
+    .hidden-desktop {
+        display: block;
+    }
+
+    .header-message {
+        display: none;
+    }
+    .header__button {
+        display: none;
+    }
+
+    .menu-icon {
+        padding: 20px 0;
+    }
+}

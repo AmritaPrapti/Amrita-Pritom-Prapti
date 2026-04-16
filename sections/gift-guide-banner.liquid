@@ -16,7 +16,7 @@
 
 <section >
   <div class="gift-guide-banner">
-      <div class="gift-image-wrapper">
+      <div class="gift-image-wrapper" style="--ratio: {{ image.aspect_ratio }};">
         {% if image != blank %}
             {{
           image
@@ -40,13 +40,20 @@
         fetchpriority='high'
       >
         {% endif %}
+        {% if section.settings.gift_guide_banner_link != blank %}
+                  <div class="gift-banner-button mobile-view">
+                      <a href="{{ section.settings.gift_guide_banner_link }}" class="gift-guide-banner__button custom-button--primary custom-button">
+                        {{ section.settings.button_label }} <span class="icon-arrow">{% render 'icon-arrow' %}</span>
+                      </a>
+                  </div>
+                {% endif %}
       </div>
           <div class="gift-banner-conter-wrapper">
               <div class="gift-banner-content color-{{ section.settings.color_scheme }}">
                 <h2 class="gift-guide-banner__heading">{{ section.settings.gift_guide_banner_heading }}</h2>
                 <p class="gift-guide-banner__subheading">{{ section.settings.gift_guide_banner_subheading }}</p>
                 {% if section.settings.gift_guide_banner_link != blank %}
-                  <div class="gift-banner-button">
+                  <div class="gift-banner-button desktop-view">
                       <a href="{{ section.settings.gift_guide_banner_link }}" class="gift-guide-banner__button custom-button--primary custom-button">
                         {{ section.settings.button_label }} <span class="icon-arrow">{% render 'icon-arrow' %}</span>
                       </a>

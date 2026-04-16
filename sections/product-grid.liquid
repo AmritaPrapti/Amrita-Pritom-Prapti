@@ -1,0 +1,81 @@
+{{ 'product-grid.css' | asset_url | stylesheet_tag }}
+<script
+  src="{{ 'product-modal.js' | asset_url }}"
+    defer
+></script>
+
+<section class="section section--page-width spacing-style color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+  <div class="product-grid ">
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      {% if product != blank %}
+        <div class="product-grid__item product-grid-{{ forloop.index }}" data-product-id="{{ product.id }}">
+          {% if product.featured_image != blank %}
+            {{
+              product.featured_image
+              | image_url: width: 600, height: 600, crop: 'center'
+              | image_tag: class: 'product-grid__image', alt: product.title
+            }}
+          {% else %}
+            <div class="product-grid__placeholder-image">
+              {{ product.title }}
+            </div>
+          {% endif %}
+          <button class="product-grid__icon">{% render 'icon-focus' %}</button>
+        </div>
+        {% render 'custom-product-modal', product: product %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme of content",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top (px)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom (px)",
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

@@ -25,6 +25,9 @@
       {%- if request.page_type == 'index' -%}
         <h1 class="visually-hidden">{{ shop.name }}</h1>
       {%- endif -%}
+      <div class="menu-icon hidden-desktop">
+        {{ 'icon-menu.svg' | inline_asset_content }}
+      </div>
       <div class="logo">
         <a href="{{ shop.url }}" class="header-logo {{ settings.logo }}" style="{{ logo_style }}">
           {% if settings.logo != blank %}
@@ -38,7 +41,7 @@
           {% endif %}
         </a>
       </div>
-      <div>
+      <div class="header-message">
         <p>{{ section.settings.header_text }}</p>
       </div>
       {% if section.settings.header_link != blank %}
