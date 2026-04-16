@@ -77,6 +77,19 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 14,
     "variant_button_width": "equal-width-buttons",
+    "sections": {
+      "custom-header": {
+        "type": "custom-header",
+        "settings": {
+          "color_scheme": "",
+          "header_text": "Find the ideal gift for your loved ones.",
+          "header_link": "shopify://pages/contact",
+          "button_label": "Shop Now",
+          "padding_top": 40,
+          "padding_bottom": 40
+        }
+      }
+    },
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
