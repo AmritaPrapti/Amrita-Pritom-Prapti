@@ -1,98 +1,145 @@
-
 :root {
-    --btn-primary-bg: #000;
-    --btn-primary-color: #fff;
-    --btn-primary-hover-bg: #FFF544;
-    --btn-primary-hover-color: #000;
-    --btn-secondary-bg: #FFF544;
-    --btn-secondary-color: #000;
-    --btn-secondary-hover-bg: #000;
-    --btn-secondary-hover-color: #fff;
+  --btn-primary-bg: #000;
+  --btn-primary-color: #fff;
+  --btn-primary-hover-bg: #fff544;
+  --btn-primary-hover-color: #000;
+  --btn-secondary-bg: #fff544;
+  --btn-secondary-color: #000;
+  --btn-secondary-hover-bg: #000;
+  --btn-secondary-hover-color: #fff;
 }
 
 .custom-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .custom-button--primary {
-    background-color: var(--btn-primary-bg);
-    color: var(--btn-primary-color);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-color);
 }
 
 .custom-button--secondary {
-    background-color: var(--btn-secondary-bg);
-    color: var(--btn-secondary-color);
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-color);
 }
 
 .custom-button--primary:hover {
-    color: var(--btn-primary-hover-color);
+  color: var(--btn-primary-hover-color);
 }
 
 .custom-button--secondary:hover {
-    color: var(--btn-secondary-hover-color);
+  color: var(--btn-secondary-hover-color);
 }
 
 .custom-button {
-    padding: 12px 40px;
-    text-decoration: none;
-    display: inline-block;
-    border: none;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: fit-content;
-    font-weight: 400;
-    font-size: 16px;
+  padding: 12px 40px;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .custom-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    transition: left 0.3s ease-in-out;
-    z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: left 0.3s ease-in-out;
+  z-index: -1;
 }
 
 .custom-button--primary:hover::before {
-    background-color: var(--btn-primary-hover-bg);
+  background-color: var(--btn-primary-hover-bg);
 }
 
 .custom-button--secondary:hover::before {
-    background-color: var(--btn-secondary-hover-bg);
+  background-color: var(--btn-secondary-hover-bg);
 }
 
 .custom-button:hover::before {
-    left: 0;
+  left: 0;
 }
 
 .hidden-desktop {
-    display: none;
+  display: none;
+}
+
+.header-drawer {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  transform: translateY(-100%);
+  width: 100%;
+  background-color: #f2f2f2;
+  padding: 20px;
+  z-index: 8;
+  transition: transform 0.3s ease-in-out;
+}
+
+.header-drawer.open {
+  transform: translateY(100%);
+}
+
+.header-message-mobile,
+.header-button-mobile {
+  display: none;
+}
+
+.custom-header-section {
+    transition: all 0.3s ease-in-out;
 }
 
 @media screen and (max-width: 749px) {
-    .hidden-desktop {
-        display: block;
-    }
+  .hidden-desktop {
+    display: block;
+  }
 
-    .header-message {
-        display: none;
-    }
-    .header__button {
-        display: none;
-    }
+  .header-message {
+    display: none;
+  }
+  .header__button {
+    display: none;
+  }
 
-    .menu-icon {
-        padding: 20px 0;
-    }
+  .menu-icon {
+    padding: 20px 0;
+  }
+  .header-message-mobile,
+  .header-button-mobile {
+    display: block;
+    text-align: center;
+  }
+  .header-message-mobile {
+    margin-bottom: 10px;
+  }
+  .header-section {
+    position: relative;
+    z-index: 1;
+    height: 70px;
+    z-index: 9;
+  }
+
+  .header-button-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .custom-header-section.drawer-open {
+    box-shadow: 0 4px 2px #00000026;
+    background-color: white;
+  }
 }
