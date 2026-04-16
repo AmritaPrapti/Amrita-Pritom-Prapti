@@ -87,9 +87,11 @@
   padding: 20px;
   z-index: 8;
   transition: transform 0.3s ease-in-out;
+  opacity: 0;
 }
 
 .header-drawer.open {
+  opacity: 1;
   transform: translateY(100%);
 }
 
@@ -99,7 +101,11 @@
 }
 
 .custom-header-section {
-    transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-icon {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 749px) {
