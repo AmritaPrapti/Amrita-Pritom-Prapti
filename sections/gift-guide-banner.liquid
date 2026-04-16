@@ -1,0 +1,123 @@
+{{ 'gift-banner.css' | asset_url | stylesheet_tag }}
+
+
+{% assign image_height = section.settings.gift_guide_banner_image.height %}
+{% assign image_height_2x = image_height | times: 2 %}
+{% assign image_height_3x = image_height | times: 3 %}
+{% assign image_alt_text = section.settings.gift_guide_banner_image.alt | default: '' %}
+{% assign image = section.settings.gift_guide_banner_image %}
+
+{% capture image_srcset -%}
+    {{ image | image_url: height: image_height }} 1x, {{ image | image_url: height: image_height_2x }} 2x, {{ image | image_url: height: image_height_3x }} 3x
+{%- endcapture %}
+
+
+
+
+<section >
+  <div class="gift-guide-banner">
+      <div class="gift-image-wrapper" style="--ratio: {{ image.aspect_ratio }};">
+        {% if image != blank %}
+            {{
+          image
+          | image_url: height: image_height
+          | image_tag: class: 'gift-guide-banner__image', alt: image_alt_text, srcset: image_srcset
+        }}
+        {% else %}
+      {% liquid
+        assign placeholder_name = 'hero-apparel-1'
+        capture placeholder_image
+          echo placeholder_name | placeholder_svg_tag | base64_encode | prepend: 'data:image/svg+xml;base64,'
+        endcapture
+      %}
+      <img
+        class='gift-guide-banner__image'
+        src='{{ placeholder_image }}'
+        alt='{{ placeholder_name }}'
+        width='800'
+        height='800'
+        loading='lazy'
+        fetchpriority='high'
+      >
+        {% endif %}
+        {% if section.settings.gift_guide_banner_link != blank %}
+                  <div class="gift-banner-button mobile-view">
+                      <a href="{{ section.settings.gift_guide_banner_link }}" class="gift-guide-banner__button custom-button--primary custom-button">
+                        {{ section.settings.button_label }} <span class="icon-arrow">{% render 'icon-arrow' %}</span>
+                      </a>
+                  </div>
+                {% endif %}
+      </div>
+          <div class="gift-banner-conter-wrapper">
+              <div class="gift-banner-content color-{{ section.settings.color_scheme }}">
+                <h2 class="gift-guide-banner__heading">{{ section.settings.gift_guide_banner_heading }}</h2>
+                <p class="gift-guide-banner__subheading">{{ section.settings.gift_guide_banner_subheading }}</p>
+                {% if section.settings.gift_guide_banner_link != blank %}
+                  <div class="gift-banner-button desktop-view">
+                      <a href="{{ section.settings.gift_guide_banner_link }}" class="gift-guide-banner__button custom-button--primary custom-button">
+                        {{ section.settings.button_label }} <span class="icon-arrow">{% render 'icon-arrow' %}</span>
+                      </a>
+                  </div>
+                {% endif %}
+              </div>
+          </div>
+      
+  </div>
+  <div class="gift-banner-caption">{{ section.settings.caption_text }}</div>
+</section>
+
+{% schema %}
+{
+  "name": "Gift Guide Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "gift_guide_banner_image",
+      "label": "Gift Guide Banner Image"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme of content",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "gift_guide_banner_heading",
+      "label": "Gift Guide Banner Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "gift_guide_banner_subheading",
+      "label": "Gift Guide Banner Subheading"
+    },
+    {
+      "type": "url",
+      "id": "gift_guide_banner_link",
+      "label": "Gift Guide Banner Link"
+    },
+    {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Shop Now"
+    },
+    {
+        "type": "text",
+        "id": "caption_text",
+        "label": "Section Footer Caption",
+        "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
