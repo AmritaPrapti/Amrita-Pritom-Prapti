@@ -18,6 +18,17 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .header-logo__image {
+    object-fit: contain;
+    height: var(--header-logo-image-height-mobile);
+    width: var(--header-logo-image-width-mobile);
+
+    @media screen and (min-width: 750px) {
+      height: var(--header-logo-image-height);
+      width: var(--header-logo-image-width);
+    }
+  }
 {%- endstyle -%}
 
 <header class=" custom-header-section section section--page-width spacing-style color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding" >
